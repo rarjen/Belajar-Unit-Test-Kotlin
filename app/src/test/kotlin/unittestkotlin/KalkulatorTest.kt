@@ -3,7 +3,9 @@ package unittestkotlin
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.*
+import org.opentest4j.TestAbortedException
 import unittestkotlin.generator.SimpleDisplayNameGenerator
+import org.junit.jupiter.api.Assumptions.* //(9)
 
 @DisplayNameGeneration(SimpleDisplayNameGenerator::class) // Jarang digunakan!
 //@DisplayName("Test for Calculator Class") //Digunakan untuk mengubah nama/keterangan nama test dan memberikan deskripsi
@@ -93,7 +95,31 @@ class KalkulatorTest {
     }
 
 
+    // Membatalkan Test JUnit
+    /**
+     * Membatalkan test pada kondisi terterntu menggunakan execption TestAbortedException
+     */
+    @Test
+    fun testAborted() {
+        val profile = System.getenv()["PROFILE"]; //mendeteksi system env variable (PROFILE) -> (Edit Configuration)
+        if ("DEV" != profile) {
+            throw TestAbortedException();
+        }
+        println("Test Not Aborted bcs Profile is Dev")
+    }
 
 
+    // Menggunakan Assumptions (9)
+    /**
+     * Mirip seperti Assertions, jika nilai nya tidak sama, maka function Assumptions akan thrown TestAbortedException, sehingga scr otomatis akan membatalkan unit test yang sedang berjalan
+     * Hanya 1 baris drpd testAborted
+     */
+    @Test
+    fun testAssumption() {
+        assumeTrue("DEV" == System.getenv().get("PROFILE")); // Kondisi harus true
+//        assumeFalse()
 
+        println("Test not aborted bcs Dev Profile")
+
+    }
 }
