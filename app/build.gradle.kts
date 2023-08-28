@@ -42,7 +42,16 @@ application {
 
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
+//    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags("integration-test") //(11. Tags)
+    }
+}
+
+tasks.register("integration-test", Test::class) {
+    useJUnitPlatform {
+        includeTags("integration-test") //(11. Tags)
+    }
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class).all {
