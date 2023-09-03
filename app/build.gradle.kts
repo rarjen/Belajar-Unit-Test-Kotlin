@@ -22,6 +22,8 @@ dependencies {
     // Use the Kotlin JUnit 5 integration.
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 
+    testImplementation("org.mockito:mockito-junit-jupiter:5.5.0")
+
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // This dependency is used by the application.
